@@ -30,7 +30,7 @@ namespace OnlineClinic.WindowsReg
             FamaliName.Text = person.MiddleName;
             DateBirthday.SelectedDate = person.BirthDate;
             txtSnils.Text = person.SNILS;
-            txtSex.Text = person.Gender;
+            txtSex.Text = person.Gender == "F"? "Женщина" : "Мужчина";
             txtTel.Text= person.PhoneNumber;
             txtAddress.Text = person.RegistrationAddress;
             txtFactAddress.Text = person.ActualAddress;
@@ -47,7 +47,7 @@ namespace OnlineClinic.WindowsReg
             _person.MiddleName = FamaliName.Text;
             _person.BirthDate = DateBirthday.SelectedDate.Value;
             _person.SNILS = txtSnils.Text;
-            _person.Gender = txtSex.Text;
+            _person.Gender = txtSex.Text.Trim().ToLower().StartsWith("м") ? "M": "F";
             _person.PhoneNumber = txtTel.Text;
             _person.RegistrationAddress = txtAddress.Text;
             _person.ActualAddress = txtFactAddress.Text;

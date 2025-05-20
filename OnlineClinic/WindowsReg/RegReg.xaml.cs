@@ -46,7 +46,7 @@ namespace OnlineClinic.WindowsReg
                 return;
             }
             char sex = 'F';
-            if (txtSex.Text.ToLower().StartsWith("м")) sex = 'M';
+            if (txtSex.Text.Trim().ToLower().StartsWith("м")) sex = 'M';
             var newPerson = new Person
             {
                 LastName = LastName.Text,

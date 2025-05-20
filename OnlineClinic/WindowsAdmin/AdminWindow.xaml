@@ -55,7 +55,7 @@
                         <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="*"/>
                         <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="*"/>
                         <DataGridTextColumn Header="Отчество" Binding="{Binding MiddleName}" Width="*"/>
-                        <DataGridTextColumn Header="Номер телефона" Binding="{Binding Role}" Width="*"/>
+                        <DataGridTextColumn Header="Роль" Binding="{Binding Role}" Width="*"/>
                         <DataGridTemplateColumn Header="" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
