@@ -5,8 +5,117 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OnlineClinic.WindowsDoctor"
         mc:Ignorable="d"
-        Title="sick" Height="450" Width="800">
+        Title="sick" Height="900" Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize">
     <Grid>
-        
+        <Border CornerRadius="32" Background="White" BorderThickness="1" BorderBrush="#7F000000" Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="BtnCancel_Click" Command="{Binding CancelCommand}" Grid.Column="2" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <Grid  Margin="4 8 0 8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="\images\icon_exit.png" Height="24" Grid.Column="0" Margin="0 0 11 0"/>
+                        <TextBlock Text="Выйти" Style="{StaticResource secondaryBlock}" Grid.Column="1"/>
+                    </Grid>
+                </Button>
+                <TextBlock Grid.Row="1" Text="Номер листа" Style="{StaticResource secondaryBlock}"/>
+                <Border Grid.Row="2" BorderBrush="#7F000000" CornerRadius="12" BorderThickness="1" Padding="5">
+                    <TextBox x:Name="txtNumber" IsReadOnly="True"/>
+                </Border>
+                <TextBlock Grid.Row="3" Text="Пациент" Style="{StaticResource secondaryBlock}"/>
+                <Border Grid.Row="4" BorderBrush="#7F000000" CornerRadius="12" BorderThickness="1" Padding="5">
+                    <TextBox x:Name="txtPatientInfo" IsReadOnly="True"/>
+                </Border>
+                <TextBlock Grid.Row="5" Text="Диагноз" Style="{StaticResource secondaryBlock}"/>
+                <Border Grid.Row="6" BorderBrush="#7F000000" CornerRadius="12" BorderThickness="1" Padding="5">
+                    <TextBox x:Name="txtDiagnosis"/>
+                </Border>
+                <Grid Grid.Row="7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource secondaryBlock}" Text="Дата начала:" Margin="0,0,0,5"/>
+                    <TextBlock Grid.Column="1" Style="{StaticResource secondaryBlock}" Text="Дата окончания:" Margin="0,0,0,5"/>
+                    <TextBlock Grid.Column="2" Style="{StaticResource secondaryBlock}" Text="Дата выдачи:" Margin="0,0,0,5"/>
+                </Grid>
+                <Grid Grid.Row="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <DatePicker Grid.Column="0" x:Name="dpStartDate" Margin="0,0,5,10"/>
+                    <DatePicker Grid.Column="1" x:Name="dpEndDate" Margin="5,0,5,10"/>
+                    <DatePicker Grid.Column="2" x:Name="dpIssueDate" Margin="5,0,0,10" IsEnabled="False"/>
+                </Grid>
+                <Grid Grid.Row="9">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource secondaryBlock}" Text="Тип:" Margin="0,0,0,5"/>
+                    <TextBlock Grid.Column="1" Style="{StaticResource secondaryBlock}" Text="Статус:" Margin="0,0,0,5"/>
+                </Grid>
+                <Grid Grid.Row="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Grid.Column="0" x:Name="cmbType" Margin="0,0,5,10">
+                        <ComboBoxItem Content="Первичный" Tag="Primary"/>
+                        <ComboBoxItem Content="Продолжение" Tag="Continuation"/>
+                        <ComboBoxItem Content="Дополнительный" Tag="Additional"/>
+                    </ComboBox>
+                    <ComboBox Grid.Column="1" x:Name="cmbStatus" Margin="5,0,0,10">
+                        <ComboBoxItem Content="Активный" Tag="Active"/>
+                        <ComboBoxItem Content="Закрыт" Tag="Closed"/>
+                        <ComboBoxItem Content="Продлен" Tag="Extended"/>
+                        <ComboBoxItem Content="Аннулирован" Tag="Cancelled"/>
+                    </ComboBox>
+                </Grid>
+                <TextBlock Grid.Row="11" Text="Место работы" Style="{StaticResource secondaryBlock}"/>
+                <Border Grid.Row="12" BorderBrush="#7F000000" CornerRadius="12" BorderThickness="1" Padding="5">
+                    <TextBox x:Name="txtWorkPlace"/>
+                </Border>
+                <TextBlock Grid.Row="13" Text="Комментарии" Style="{StaticResource secondaryBlock}"/>
+                <Border Grid.Row="14" BorderBrush="#7F000000" CornerRadius="12" BorderThickness="1" Padding="5">
+                    <TextBox x:Name="txtComments"/>
+                </Border>
+                <Grid Grid.Row="15">
+                    <Border Grid.Column="0" Height="80" Background="#58CF5A" CornerRadius="32" Margin="0 30 0 0" Width="300" HorizontalAlignment="Left">
+                        <Button x:Name="btnSave" Click="BtnSave_Click" Style="{StaticResource interactive}" Content="Сохранить"/>
+                    </Border>
+                    <Border Grid.Column="1" Height="80" Background="#58CF5A" CornerRadius="32" Margin="0 30 0 0" Width="300" HorizontalAlignment="Right">
+                        <Button x:Name="PrintButton" Click="PrintButton_Click" Style="{StaticResource interactive}" Content="Печать" IsEnabled="False"/>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

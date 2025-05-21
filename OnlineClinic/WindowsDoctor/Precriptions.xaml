@@ -5,8 +5,67 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OnlineClinic.WindowsDoctor"
         mc:Ignorable="d"
-        Title="Precriptions" Height="450" Width="800">
+        Title="Precriptions" Height="800" Width="700"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize">
     <Grid>
-        
+        <Border CornerRadius="32" Background="White" BorderThickness="1" BorderBrush="#7F000000" Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="BtnCancel_Click" Command="{Binding CancelCommand}" Grid.Column="2" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <Grid  Margin="4 8 0 8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="\images\icon_exit.png" Height="24" Grid.Column="0" Margin="0 0 11 0"/>
+                        <TextBlock Text="Выйти" Style="{StaticResource secondaryBlock}" Grid.Column="1"/>
+                    </Grid>
+                </Button>
+
+                <TextBlock Grid.Row="1" Text="Название лекарства" Style="{StaticResource secondaryBlock}"/>
+                <Border Grid.Row="2" BorderBrush="#7F000000" CornerRadius="12" BorderThickness="1" Padding="5">
+                    <TextBox x:Name="txtMedicationName"/>
+                </Border>
+
+                <TextBlock Grid.Row="3" Text="Дозировка" Style="{StaticResource secondaryBlock}"/>
+                <Border Grid.Row="4" BorderBrush="#7F000000" CornerRadius="12" BorderThickness="1" Padding="5">
+                    <TextBox x:Name="txtDosage"/>
+                </Border>
+
+
+                <TextBlock Grid.Row="5" Text="Дата выписки" Style="{StaticResource secondaryBlock}"/>
+                <Border Grid.Row="6" BorderBrush="#7F000000" CornerRadius="12" BorderThickness="1" Padding="5">
+                    <DatePicker Name="dpIssueDate" IsEnabled="False" Background="{x:Null}" BorderBrush="{x:Null}"/>
+                </Border>
+                
+                <TextBlock Grid.Row="7" Text="Срок действия до" Style="{StaticResource secondaryBlock}"/>
+                <Border Grid.Row="8" BorderBrush="#7F000000" CornerRadius="12" BorderThickness="1" Padding="5">
+                    <DatePicker Name="dpExpiryDate" Background="{x:Null}" BorderBrush="{x:Null}"/>
+                </Border>
+
+                <Grid  Grid.Row="9">
+                    <Border Grid.Column="0" Height="80" Background="#58CF5A" CornerRadius="32" Margin="0 30 0 0" Width="300" HorizontalAlignment="Left">
+                        <Button x:Name="btnSave" Click="BtnSave_Click" Style="{StaticResource interactive}" Content="Сохранить"/>
+                    </Border>
+                    <Border Grid.Column="1" Height="80" Background="#58CF5A" CornerRadius="32" Margin="0 30 0 0" Width="300" HorizontalAlignment="Right">
+                        <Button x:Name="PrintButton" Click="PrintButton_Click" Style="{StaticResource interactive}" Content="Печать" IsEnabled="False"/>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

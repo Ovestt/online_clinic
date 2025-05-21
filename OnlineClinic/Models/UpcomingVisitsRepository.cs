@@ -24,8 +24,9 @@ public class UpcomingVisitsRepository
                 SELECT 
                     v.VisitID,
                     v.PatientID,
-                    p.LastName + ' ' + p.FirstName + ' ' + p.MiddleName as PatientFullName,
+                    p.LastName + ' ' + p.FirstName + ' ' + ISNULL(p.MiddleName, '') as PatientFullName,
                     v.VisitDateTime,
+                    v.EndDateTime,
                     v.Notes,
                     u.Speciality,
                     p.PhoneNumber as PatientPhone,
@@ -34,13 +35,13 @@ public class UpcomingVisitsRepository
                 JOIN Persons p ON v.PatientID = p.ID
                 JOIN UserCredentialsDB u ON v.EmployeeID = u.UserID
                 WHERE v.EmployeeID = @DoctorId
-                AND v.VisitDateTime >= @CurrentDate
+                AND v.EndDateTime IS NULL -- Только незавершенные визиты
+                AND v.VisitDateTime >= DATEADD(MINUTE, -30, GETDATE()) -- Визиты не старше 30 минут
                 ORDER BY v.VisitDateTime ASC";
 
             using (var command = new SqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@DoctorId", doctorId);
-                command.Parameters.AddWithValue("@CurrentDate", DateTime.Now);
 
                 using (var reader = command.ExecuteReader())
                 {

@@ -122,6 +122,64 @@ namespace OnlineClinic.WindowsDoctor
                               MessageBoxImage.Error);
             }
         }
+        public void CloseSeans_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    // Проверяем, не закрыт ли уже визит
+                    string checkQuery = "SELECT EndDateTime FROM Visits WHERE VisitID = @VisitId";
+                    using (var checkCommand = new SqlCommand(checkQuery, connection))
+                    {
+                        checkCommand.Parameters.AddWithValue("@VisitId", _visitId);
+                        var endTime = checkCommand.ExecuteScalar();
+
+                        if (endTime != null && endTime != DBNull.Value)
+                        {
+                            MessageBox.Show("Этот визит уже был завершен ранее", "Информация",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+                            return;
+                        }
+                    }
+
+                    // Обновляем время завершения визита
+                    string updateQuery = @"
+                UPDATE Visits 
+                SET 
+                    EndDateTime = GETDATE(),
+                    Notes = @Notes
+                WHERE VisitID = @VisitId";
+
+                    using (var updateCommand = new SqlCommand(updateQuery, connection))
+                    {
+                        updateCommand.Parameters.AddWithValue("@VisitId", _visitId);
+                        updateCommand.Parameters.AddWithValue("@Notes", VisitNotesTextBox.Text ?? string.Empty);
+
+                        int rowsAffected = updateCommand.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            this.DialogResult = true;
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Не удалось завершить визит", "Ошибка",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при завершении визита: {ex.Message}", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
 
         public void ExitButton_Click(object sender, EventArgs e)
         {
@@ -155,12 +213,12 @@ namespace OnlineClinic.WindowsDoctor
         }
         public void SentPrecriptons_Click(object sender, EventArgs e)
         {
-            var editWindow = new Precriptions();
+            var editWindow = new Precriptions(_doctorId, _patientId, _connectionString);
             editWindow.ShowDialog();
         }        
         public void SentNotWork_Click(object sender, EventArgs e)
         {
-            var editWindow = new sick();
+            var editWindow = new sick(_doctorId, _patientId, _connectionString);
             editWindow.ShowDialog();
         }
     }

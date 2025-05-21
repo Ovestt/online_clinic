@@ -45,6 +45,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
@@ -142,6 +143,9 @@
                         <TextBlock x:Name="VisitNotesTextBox"/>
                     </Border>
                 </Grid>
+                <Border Grid.Row="3" Height="80" Background="red" CornerRadius="32"  Width="400" Margin="10">
+                    <Button Click="CloseSeans_Click" Style="{StaticResource interactive}" Content="Завершить визит"/>
+                </Border>
 
 
             </Grid>
