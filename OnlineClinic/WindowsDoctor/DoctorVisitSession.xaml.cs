@@ -135,12 +135,12 @@ namespace OnlineClinic.WindowsDoctor
         }
         public void DiagnosesHistory_Click(object sender, EventArgs e)
         {
-            var editWindow = new DiagnosesHistory();
+            var editWindow = new DiagnosesHistory(_doctorId, _patientId, _connectionString);
             editWindow.ShowDialog();
         }
         public void Presctiptions_Click(object sender, EventArgs e)
         {
-            var editWindow = new PresriptionsHistory();
+            var editWindow = new PresriptionsHistory(_doctorId, _patientId, _connectionString);
             editWindow.ShowDialog();
         }
         public void SendReferrals_Click(object sender, EventArgs e)
@@ -150,7 +150,7 @@ namespace OnlineClinic.WindowsDoctor
         }
         public void SendDiagnoses_Click(object sender, EventArgs e)
         {
-            var editWindow = new Diagnoses();
+            var editWindow = new Diagnoses(_doctorId, _patientId, _connectionString);
             editWindow.ShowDialog();
         }
         public void SentPrecriptons_Click(object sender, EventArgs e)

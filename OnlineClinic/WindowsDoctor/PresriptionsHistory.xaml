@@ -5,8 +5,64 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OnlineClinic.WindowsDoctor"
         mc:Ignorable="d"
-        Title="PresriptionsHistory" Height="450" Width="800">
+        Title="PresriptionsHistory" Height="1080" Width="1920"
+        WindowState="Maximized"
+        WindowStyle="None">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Margin="52 52 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="ЗдравЛайн" Style="{StaticResource logo}" Grid.Row="0"/>
+                <TextBlock Text="врач" Style="{StaticResource secondaryBlock}" Grid.Row="1"/>
+            </Grid>
+
+            <Button Click="ExitButton_Click" Grid.Column="1" Margin="0 52 52 0" Background="{x:Null}" BorderBrush="{x:Null}">
+                <Grid  Margin="4 8 0 8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="\images\icon_exit.png" Height="24" Grid.Column="0" Margin="0 0 11 0"/>
+                    <TextBlock Text="Выйти" Style="{StaticResource secondaryBlock}" Grid.Column="1"/>
+                </Grid>
+            </Button>
+        </Grid>
+
+        <Border Grid.Row="1" Margin="52" BorderBrush="#7F000000" CornerRadius="32" BorderThickness="1" Padding="42 32">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="0 0 0 15" Text="Рецепты пациента" Style="{StaticResource headerBlock}"/>
+                <DataGrid Grid.Row="1" ItemsSource="{Binding Visits}" x:Name="PrescriptionsGrid" Style="{StaticResource CustomDataGridStyle}" ColumnHeaderStyle="{StaticResource CustomDataGridColumnHeaderStyle}" RowStyle="{StaticResource CustomDataGridRowStyle}" CellStyle="{StaticResource CustomDataGridCellStyle}" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID рецепта" Binding="{Binding PrescriptionID}" Width="1*"/>
+                        <DataGridTextColumn Header="Лекарство" Binding="{Binding MedicationName}" Width="1*"/>
+                        <DataGridTextColumn Header="Дозировка" Binding="{Binding Dosage}" Width="1*"/>
+                        <DataGridTextColumn Header="Дата выписки" Binding="{Binding IssueDate, StringFormat={}{0:dd.MM.yyyy HH:mm}}" Width="1*"/>
+                        <DataGridTextColumn Header="Срок действия" Binding="{Binding ExpiryDate, StringFormat={}{0:dd.MM.yyyy HH:mm}}" Width="1*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="2">
+            <TextBlock x:Name="StatusText"/>
+            <TextBlock x:Name="RecordCountText" HorizontalAlignment="Right"/>
+        </Grid>
     </Grid>
 </Window>

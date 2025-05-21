@@ -56,7 +56,7 @@
                     <!-- Цель направления -->
                     <TextBlock Grid.Row="4" Text="Цель направления" Style="{StaticResource secondaryBlock}"/>
                     <Border Grid.Row="5" BorderBrush="#7F000000" CornerRadius="12" BorderThickness="1" Padding="5">
-                        <TextBox Text="{Binding Referral.Purpose}" AcceptsReturn="True" Height="60"/>
+                        <TextBox Text="{Binding Referral.Purpose}" VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap" Height="60"/>
                     </Border>
 
 
