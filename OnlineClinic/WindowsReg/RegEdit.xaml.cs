@@ -66,8 +66,8 @@ namespace OnlineClinic.WindowsReg
         }
         public void history_Click(object sender, EventArgs e)
         {
-            DialogResult = false;
-            Close();
+            var editWindow = new HistoryConnection(_person, _personRepository);
+            editWindow.ShowDialog();
         }
         public void RegSession_Click(object sender, EventArgs e)
         {

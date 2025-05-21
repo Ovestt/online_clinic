@@ -39,47 +39,54 @@ namespace OnlineClinic
         {
             string login = txtLogin.Text;
             string password = txtPassword.Password;
-            if (login == "" || password == "")
+
+            if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Строка логин или пароль пуста", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Логин или пароль не введены", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                txtLogin.Text = "";
+                txtPassword.Password = "";
+                txtLogin.Focus();
+                return;
+            }
+
+            var validationResult = ValidateUser(login, password);
+            if (validationResult.Item1)
+            {
+                string role = validationResult.Item2;
+                int userID = validationResult.Item3; 
+
+                Window workWindow = null;
+                switch (role)
+                {
+                    case "администратор":
+                        workWindow = new AdminWindow();
+                        break;
+                    case "врач":
+                        workWindow = new DoctorWindow(userID);
+                        break;
+                    case "регистратор":
+                        workWindow = new RegWindow();
+                        break;
+                }
+
+                workWindow?.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Неверный логин или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 txtLogin.Text = "";
                 txtPassword.Password = "";
                 txtLogin.Focus();
             }
-            else
-            {
-                Tuple<bool, string> validationResult = ValidateUser(login, password);
-                if (validationResult.Item1)
-                {
-                    string role = validationResult.Item2;
-                    Window workWindow = null;
-                    switch (role)
-                    {
-                        case "администратор": workWindow = new AdminWindow(); break;
-                        case "врач": workWindow = new DoctorWindow(); break;
-                        case "регистратор": workWindow = new RegWindow(); break;
-                    }
-                    workWindow.Show();
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Неверный логин или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    txtLogin.Text = "";
-                    txtPassword.Password = "";
-                    txtLogin.Focus();
-                }
-            }
-
-
         }
-        private Tuple<bool, string> ValidateUser(string login, string password)
+        private Tuple<bool, string, int> ValidateUser(string login, string password)
         {
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
 
-                string query = "SELECT Role FROM UserCredentialsDB " +
+                string query = "SELECT Role, UserID FROM UserCredentialsDB " + 
                                "WHERE Login = @Login AND PasswordHash = @PasswordHash";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
@@ -87,14 +94,18 @@ namespace OnlineClinic
                     command.Parameters.AddWithValue("@Login", login);
                     command.Parameters.AddWithValue("@PasswordHash", HashPassword(password));
 
-                    object result = command.ExecuteScalar();
-                    if (result != null)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        return Tuple.Create(true, result.ToString());
-                    }
-                    else
-                    {
-                        return Tuple.Create(false, "");
+                        if (reader.Read())
+                        {
+                            string role = reader["Role"].ToString();
+                            int userID = Convert.ToInt32(reader["UserID"]);
+                            return Tuple.Create(true, role, userID);
+                        }
+                        else
+                        {
+                            return Tuple.Create(false, "", -1);
+                        }
                     }
                 }
             }

@@ -75,9 +75,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="methods\ExitButton.cs" />
+    <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\MedicalReferralModel.cs" />
+    <Compile Include="Models\MedicalReferralViewModel.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\PersonRepository.cs" />
+    <Compile Include="Models\RelayCommand.cs" />
+    <Compile Include="Models\UpcomingVisit.cs" />
+    <Compile Include="Models\UpcomingVisitsRepository.cs" />
     <Compile Include="Models\UserRepository.cs" />
+    <Compile Include="Models\VisitHistory.cs" />
+    <Compile Include="Models\VisitRepository.cs" />
+    <Compile Include="Models\VisitsViewModel.cs" />
     <Compile Include="WindowsAdmin\AdminEdit.xaml.cs">
       <DependentUpon>AdminEdit.xaml</DependentUpon>
     </Compile>
@@ -88,8 +97,35 @@
     <Compile Include="WindowsAdmin\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowsDoctor\Diagnoses.xaml.cs">
+      <DependentUpon>Diagnoses.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsDoctor\DiagnosesHistory.xaml.cs">
+      <DependentUpon>DiagnosesHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsDoctor\DoctorHistory.xaml.cs">
+      <DependentUpon>DoctorHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsDoctor\DoctorVisitSession.xaml.cs">
+      <DependentUpon>DoctorVisitSession.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowsDoctor\DoctorWindow.xaml.cs">
       <DependentUpon>DoctorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsDoctor\Precriptions.xaml.cs">
+      <DependentUpon>Precriptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsDoctor\PresriptionsHistory.xaml.cs">
+      <DependentUpon>PresriptionsHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsDoctor\Referrals.xaml.cs">
+      <DependentUpon>Referrals.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsDoctor\sick.xaml.cs">
+      <DependentUpon>sick.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsReg\HistoryConnection.xaml.cs">
+      <DependentUpon>HistoryConnection.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowsReg\RegEdit.xaml.cs">
       <DependentUpon>RegEdit.xaml</DependentUpon>
@@ -127,9 +163,45 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="WindowsDoctor\Diagnoses.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsDoctor\DiagnosesHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsDoctor\DoctorHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsDoctor\DoctorVisitSession.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WindowsDoctor\DoctorWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WindowsDoctor\Precriptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsDoctor\PresriptionsHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsDoctor\Referrals.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsDoctor\sick.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsReg\HistoryConnection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowsReg\RegEdit.xaml">
       <SubType>Designer</SubType>
@@ -203,8 +275,12 @@
     <Content Include="query\createDataPerson.sql" />
     <Content Include="query\dbo.UserCredentialsDB.sql" />
     <Content Include="query\dbo.UserCredentialsDBCreateDate.sql" />
+    <Content Include="query\diagnos.sql" />
+    <Content Include="query\medicalReferralssql.sql" />
     <Content Include="query\person.sql" />
+    <Content Include="query\prescriptions.sql" />
     <Content Include="query\session.sql" />
+    <Content Include="query\sickLeaves.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

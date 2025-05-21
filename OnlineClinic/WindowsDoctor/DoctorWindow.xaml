@@ -8,10 +8,25 @@
         Title="DoctorWindow" Height="1080" Width="1920"
         WindowState="Maximized"
         WindowStyle="None">
+    <Window.Resources>
+        <Style x:Key="OverdueVisitStyle" TargetType="{x:Type DataGridRow}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding TimeUntilVisit}" Value="Просрочено">
+                    <Setter Property="Background" Value="#FFEBEE"/>
+                    <Setter Property="Foreground" Value="#D32F2F"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding TimeUntilVisit}" Value="Сейчас">
+                    <Setter Property="Background" Value="#FFF8E1"/>
+                    <Setter Property="Foreground" Value="#FF8F00"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -40,8 +55,45 @@
             </Button>
         </Grid>
 
-        <Border Grid.Row="1" Margin="52" BorderBrush="#7F000000" CornerRadius="32" BorderThickness="1">
-
+        <Border Grid.Row="1" Margin="52" BorderBrush="#7F000000" CornerRadius="32" BorderThickness="1" Padding="42 32">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="0 0 0 15" Text="Записи" Style="{StaticResource headerBlock}"/>
+                <DataGrid Grid.Row="1" x:Name="VisitsDataGrid" Style="{StaticResource CustomDataGridStyle}" ColumnHeaderStyle="{StaticResource CustomDataGridColumnHeaderStyle}" RowStyle="{StaticResource CustomDataGridRowStyle}" CellStyle="{StaticResource CustomDataGridCellStyle}" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Дата" Binding="{Binding VisitDate}" Width="1*"/>
+                        <DataGridTextColumn Header="Время" Binding="{Binding VisitTime}" Width="1*"/>
+                        <DataGridTextColumn Header="До визита" Binding="{Binding TimeUntilVisit}" Width="1*"/>
+                        <DataGridTextColumn Header="Пациент" Binding="{Binding PatientFullName}" Width="1*"/>
+                        <DataGridTextColumn Header="Телефон" Binding="{Binding PatientPhone}" Width="1*"/>
+                        <DataGridTextColumn Header="Специальность" Binding="{Binding Speciality}" Width="1*"/>
+                        <DataGridTextColumn Header="Описание" Binding="{Binding Notes}" Width="1*"/>
+                        <DataGridTemplateColumn Header="" Width="2*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Content="Начать приём" 
+                                        Tag="{Binding VisitID}"
+                                        Click="StartVisit_Click"
+                                        Margin="0,0,5,0"/>
+                                        <Button Content="Отменить" 
+                                        Tag="{Binding VisitID}"
+                                        Click="CancelVisit_Click"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
         </Border>
+
+        <Grid Grid.Row="2">
+            <TextBlock x:Name="StatusText"/>
+            <TextBlock x:Name="RecordCountText" HorizontalAlignment="Right"/>
+        </Grid>
     </Grid>
 </Window>
